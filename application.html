@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Loan Application Form</h2>
+    
+    <form method="post" class="needs-validation" novalidate>
+        <!-- Section 1: Applicant Information -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5>1. Applicant Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label for="first_name" class="form-label required-field">First Name</label>
+                        <input type="text" class="form-control" id="first_name" name="first_name" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="father_name" class="form-label required-field">Father's Name</label>
+                        <input type="text" class="form-control" id="father_name" name="father_name" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="grandfather_name" class="form-label required-field">Grandfather's Name</label>
+                        <input type="text" class="form-control" id="grandfather_name" name="grandfather_name" required>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <label for="sex" class="form-label required-field">Gender</label>
+                        <select class="form-select" id="sex" name="sex" required>
+                            <option value="" selected disabled>Select</option>
+                            <option value="m">Male</option>
+                            <option value="f">Female</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <label for="dob" class="form-label required-field">Date of Birth</label>
+                        <input type="date" class="form-control" id="dob" name="dob" required>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <label for="address" class="form-label required-field">Address (as per Kebele ID)</label>
+                        <input type="text" class="form-control" id="address" name="address" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section 2: Business Information -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5>2. Business Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="enterprise_name" class="form-label required-field">Enterprise Name</label>
+                        <input type="text" class="form-control" id="enterprise_name" name="enterprise_name" required>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <label for="has_license" class="form-label required-field">Has Business License?</label>
+                        <select class="form-select" id="has_license" name="has_license" required>
+                            <option value="" selected disabled>Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <label for="enterprise_size" class="form-label required-field">Enterprise Size</label>
+                        <select class="form-select" id="enterprise_size" name="enterprise_size" required>
+                            <option value="" selected disabled>Select</option>
+                            <option value="Micro">Micro</option>
+                            <option value="Small">Small</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Start-up">Start-up</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label for="ownership_type" class="form-label required-field">Ownership Type</label>
+                        <select class="form-select" id="ownership_type" name="ownership_type" required>
+                            <option value="" selected disabled>Select</option>
+                            <option value="solepropritership">Sole Proprietorship</option>
+                            <option value="Partnership">Partnership</option>
+                            <option value="PLC">PLC</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label for="business_sector" class="form-label required-field">Business Sector</label>
+                        <select class="form-select" id="business_sector" name="business_sector" required>
+                            <option value="" selected disabled>Select</option>
+                            <option value="Manufacturing">Manufacturing</option>
+                            <option value="Construction">Construction</option>
+                            <option value="Agriculture">Agriculture</option>
+                            <option value="Mining">Mining</option>
+                            <option value="Service">Service</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label for="owners_count" class="form-label required-field">Number of Owners</label>
+                        <input type="number" class="form-control" id="owners_count" name="owners_count" min="1" required>
+                    </div>
+                    
+                    <div class="col-12">
+                        <label for="owners_names" class="form-label required-field">Names of Owners/Shareholders</label>
+                        <input type="text" class="form-control" id="owners_names" name="owners_names" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- More sections would follow the same pattern -->
+        
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary btn-lg">Submit Application</button>
+            <a href="/dashboard" class="btn btn-secondary btn-lg">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<script>
+// Form validation
+(function () {
+  'use strict'
+  const forms = document.querySelectorAll('.needs-validation')
+  Array.from(forms).forEach(function (form) {
+    form.addEventListener('submit', function (event) {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+</script>
+{% endblock %}

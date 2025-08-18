@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">User Management</h2>
+    
+    {% if session.is_super_admin %}
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5>Add New Admin</h5>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="/admin/add-admin">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Add Admin</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+    
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h5>All Users</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.email }}</td>
+                            <td>{{ "Admin" if user.is_admin else "Data Collector" }}</td>
+                            <td>{{ "Approved" if user.is_approved else "Pending" }}</td>
+                            <td>{{ user.created_at[:10] }}</td>
+                            <td>
+                                {% if not user.is_approved %}
+                                <a href="/admin/approve-user/{{ user.id }}" class="btn btn-sm btn-success">Approve</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
