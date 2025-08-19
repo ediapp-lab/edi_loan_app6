@@ -1,34 +1,144 @@
-{% extends "base.html" %}
+{% extends "admin_base.html" %}
 
 {% block content %}
-<div class="container">
-    <h2 class="mb-4">Application Details</h2>
-    
+<div class="container mt-4">
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">
-            <h5>Edit Application</h5>
+            <h5>Edit Application - ID: {{ app.id }}</h5>
+            <small>Submitted by: {{ app.collector_email }} on {{ app.collection_date }}</small>
         </div>
         <div class="card-body">
             <form method="POST" action="/admin/update-application/{{ app.id }}">
                 <div class="row g-3">
+                    <!-- Basic Information Section -->
+                    <div class="col-12">
+                        <h6 class="border-bottom pb-2">Basic Information</h6>
+                    </div>
+                    
                     <div class="col-md-4">
-                        <label class="form-label">Applicant Name</label>
-                        <p class="form-control-plaintext">{{ app.first_name }} {{ app.father_name }} {{ app.grandfather_name }}</p>
+                        <label class="form-label">First Name</label>
+                        <input type="text" class="form-control" name="first_name" value="{{ app.first_name }}" required>
                     </div>
                     <div class="col-md-4">
+                        <label class="form-label">Father's Name</label>
+                        <input type="text" class="form-control" name="father_name" value="{{ app.father_name }}" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Grandfather's Name</label>
+                        <input type="text" class="form-control" name="grandfather_name" value="{{ app.grandfather_name }}" required>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <label class="form-label">Date of Birth</label>
+                        <input type="date" class="form-control" name="dob" value="{{ app.dob }}" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Sex</label>
+                        <select class="form-select" name="sex" required>
+                            <option value="M" {% if app.sex == 'M' %}selected{% endif %}>Male</option>
+                            <option value="F" {% if app.sex == 'F' %}selected{% endif %}>Female</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Applicant Address</label>
+                        <input type="text" class="form-control" name="address" value="{{ app.address }}" required>
+                    </div>
+                    
+                    <!-- Location Information -->
+                    <div class="col-12 mt-4">
+                        <h6 class="border-bottom pb-2">Location Information</h6>
+                    </div>
+                    
+                    <div class="col-md-3">
                         <label class="form-label">Region</label>
                         <input type="text" class="form-control" name="region" value="{{ app.region }}" required>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <label class="form-label">Zone</label>
                         <input type="text" class="form-control" name="zone" value="{{ app.zone }}" required>
                     </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Woreda</label>
+                        <input type="text" class="form-control" name="woreda" value="{{ app.woreda }}" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Kebele</label>
+                        <input type="text" class="form-control" name="kebele" value="{{ app.kebele }}" required>
+                    </div>
                     
-                    <!-- More fields would follow the same pattern -->
+                    <!-- Business Information -->
+                    <div class="col-12 mt-4">
+                        <h6 class="border-bottom pb-2">Business Information</h6>
+                    </div>
                     
-                    <div class="col-12">
+                    <div class="col-md-4">
+                        <label class="form-label">Has Business License?</label>
+                        <select class="form-select" name="has_license" required>
+                            <option value="Yes" {% if app.has_license == 'Yes' %}selected{% endif %}>Yes</option>
+                            <option value="No" {% if app.has_license == 'No' %}selected{% endif %}>No</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label class="form-label">Trade License Number</label>
+                        <input type="text" class="form-control" name="trade_license_num" value="{{ app.trade_license_num }}" {% if app.has_license == 'Yes' %}required{% endif %}>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label class="form-label">TIN Number</label>
+                        <input type="text" class="form-control" name="tin_number" value="{{ app.tin_number }}" {% if app.has_license == 'Yes' %}required{% endif %}>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label class="form-label">Business Category</label>
+                        <select class="form-select" name="enterprise_size" required>
+                            <option value="Micro" {% if app.enterprise_size == 'Micro' %}selected{% endif %}>Micro</option>
+                            <option value="Small" {% if app.enterprise_size == 'Small' %}selected{% endif %}>Small</option>
+                            <option value="Medium" {% if app.enterprise_size == 'Medium' %}selected{% endif %}>Medium</option>
+                            <option value="Startup" {% if app.enterprise_size == 'Startup' %}selected{% endif %}>Startup</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label class="form-label">Ownership Type</label>
+                        <select class="form-select" name="ownership_type" required>
+                            <option value="Sole Proprietorship" {% if app.ownership_type == 'Sole Proprietorship' %}selected{% endif %}>Sole Proprietorship</option>
+                            <option value="Partnership" {% if app.ownership_type == 'Partnership' %}selected{% endif %}>Partnership</option>
+                            <option value="PLC" {% if app.ownership_type == 'PLC' %}selected{% endif %}>PLC</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label class="form-label">Business Sector</label>
+                        <select class="form-select" name="business_sector" required>
+                            <option value="Manufacturing" {% if app.business_sector == 'Manufacturing' %}selected{% endif %}>Manufacturing</option>
+                            <option value="Construction" {% if app.business_sector == 'Construction' %}selected{% endif %}>Construction</option>
+                            <option value="Agriculture" {% if app.business_sector == 'Agriculture' %}selected{% endif %}>Agriculture</option>
+                            <option value="Mining" {% if app.business_sector == 'Mining' %}selected{% endif %}>Mining</option>
+                            <option value="Service" {% if app.business_sector == 'Service' %}selected{% endif %}>Service</option>
+                            <option value="Other" {% if app.business_sector == 'Other' %}selected{% endif %}>Other</option>
+                        </select>
+                    </div>
+                    
+                    <!-- More sections for Employees, Financials, Guarantor, etc. -->
+                    
+                    <div class="col-12 mt-4">
+                        <h6 class="border-bottom pb-2">Status</h6>
+                    </div>
+                    
+                    <div class="col-md-12">
+                        <label class="form-label">Application Status</label>
+                        <select class="form-select" name="status" required>
+                            <option value="Pending" {% if app.status == 'Pending' %}selected{% endif %}>Pending</option>
+                            <option value="Approved" {% if app.status == 'Approved' %}selected{% endif %}>Approved</option>
+                            <option value="Rejected" {% if app.status == 'Rejected' %}selected{% endif %}>Rejected</option>
+                            <option value="More Info Needed" {% if app.status == 'More Info Needed' %}selected{% endif %}>More Info Needed</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-12 mt-4">
                         <button type="submit" class="btn btn-primary">Save Changes</button>
-                        <a href="/admin" class="btn btn-secondary">Back</a>
+                        <a href="/admin" class="btn btn-secondary">Cancel</a>
                     </div>
                 </div>
             </form>
