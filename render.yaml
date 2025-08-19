@@ -1,10 +1,54 @@
 services:
   - type: web
     name: edi-loan-app
-    env: python
+    runtime: python
     plan: free
-    buildCommand: pip install -r requirements.txt
+    buildCommand: |
+      pip install -r requirements.txt
     startCommand: gunicorn app:app
     envVars:
       - key: SECRET_KEY
         generateValue: true
+      - key: PROJECT_ID
+        value: edi-loan-app-2
+      - key: PRIVATE_KEY_ID
+        value: 13babc14cd6b0e3a8ad0dfbca2f4246f4e0e381b
+      - key: PRIVATE_KEY
+        value: |
+          -----BEGIN PRIVATE KEY-----
+          MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCqi5A5c7bqWu4n
+          NRe8yFwg0DiHa9KoL3TtpBsUH0lABf3pK5nd2ODvxDI2sJ4v9CXondeXoAGLrv36
+          uluCS44EzwkVyLC8lGdEl6jTuSt61a6nW07UaAkvtUJpZDhJquiunaBnr/bLAznC
+          dex+5M9xsYK2ASy0C1c5MJKLhqFdqaSq3pAHKFSJYxz8WmhfUWyzwnshG4jwXbO+
+          1bkCxSjxYYkQe15y34KUNyM5dmEtEltlQonyyvCXJT4Hd4z3X0s0nTNvBfmsmOxs
+          ye0PAFJcD4cMksMrlJJTlC+JjjEUfr8Hm687nSlEdal0aIj1vnhaZ7Nm3yJgQ9PI
+          K0blrazBAgMBAAECggEAIPvbCfGCR/MMKlMPYziQ8Nu0gyRsWpDLGYbqocqnPRWr
+          lOQU3x4p6tVULNWd0oJyrnmQj8enZN+USWCvgBSiw/VSuX7WB7LgAhke0sv2R8x5
+          +e4j4dq5JBv3WzDB3iWK2PKtakBTB9J44k4yThxsrn15XT/+6FdlKC9nuEpyfQ2Y
+          R7cK1B1IBty9XU5mF2ErUp1QEReJtY4HjotCZji7s0dTAJ9B/SeKVYU6yQ8nR+8G
+          2aOPrcTBtQMPd3BCU3fIVdYOA4KArR2TBM8jhjJlSwY21ELmvpRmry37LBD40pCc
+          WYWoT2w+NrrqbtLNk9J9CTDI8fhjksaihIgWovqHEQKBgQDfACEoBMUTwJOEDRSx
+          O5IhfcY0kiLH7VJQqg34YUa8+mEvQ63Y5BUPdkL5xkvrGHAPOcnjemqvHq1Smbwr
+          ERFRYtwHt9g0ISyhvdxSL+Gn1Npl5OuOejOtYmypdkM+GBdrSD6LxnLp5jhEHNZO
+          SZNYKhhX+hvk7mabmSE1XIE9lQKBgQDDyEgrqCTr6agGxC0bbGQ1040tUu7sAot5
+          xXMBiPjCC5T01ckLuD68SlX9vLm2oRRQuI+WgfsosXhA2laK2E5DOUxFrYObLbPo
+          jrCu8NrF97x+jrmgJxXGg2OfpORJ8cVoWJR2ThzS3n1bc2DHO5FJRsCzh7ge3OKW
+          BEorz6NvfQKBgEpps6az+MN/lnoRF1+Q3lF4s+QlA6AtTDOIm4LPixhSgI2SCvf+
+          HBz9vJm2luzLSdF62iijV+g512Jh1I2Wc23yDDQzH909WLRcM6HlQmqLt5kay5PO
+          qWHpHxNpWETnKyFsiRqBTSVJ4mqwKL8VBCr+WQM6fYZmGy0+6vrwdFwFAoGADFyX
+          Afqp6iNkspisaHDdmvByl4wG/evjNpsa+dvWKRpmG1dsTEsj2uuupkjGSRu+lqIw
+          nsYyP42FFEM096tUtbXmdPfRuXiXRXXM/h7DEYDk6/DDE7OkEla1cZ0NtQWI+1+s
+          cBPaig32SFHuqGXAdKn8/Njy7S/xNpuquz1vClkCgYEAwmtdRPnTv2PlJ7NZfrqx
+          fuBfy8E2xxhNyrCeUHjzA1xavcBfXlerSzd1B9sd4k8QN7SD2JT3Rwfplc9y1pKZ
+          McAnqgvX+E2wVrSEcXF3mhuxYN38OMQ2TqL7ve5EK/1BstcIzfF3BuCNgv8eSUvu
+          xRe91MICEf0ZVSlIYuqjVjE=
+          -----END PRIVATE KEY-----
+      - key: CLIENT_EMAIL
+        value: edi-app@edi-loan-app-2.iam.gserviceaccount.com
+      - key: CLIENT_ID
+        value: "104735230822931853817"
+      - key: CLIENT_CERT_URL
+        value: https://www.googleapis.com/robot/v1/metadata/x509/edi-app%40edi-loan-app-2.iam.gserviceaccount.com
+      - key: GOOGLE_SHEET_ID
+        value: 14BcNGcLq8DTrxf0w3ft1b15QKbDwztWP
+    healthCheckPath: /login
